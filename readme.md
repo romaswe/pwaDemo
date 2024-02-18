@@ -83,3 +83,38 @@ self.addEventListener('fetch', function (event) {
 	);
 });
 ```
+
+## Service worker (Serve changing)
+
+```Javascript
+const url = new URL(event.request.url);
+
+	// serve the cider JPG from the cache if the request is
+	// same-origin and the path is '/images/beer.jpg'
+	if (url.origin == location.origin && url.pathname == '/images/beer.jpg') {
+		event.respondWith(caches.match('/images/cider.jpg'));
+	}
+```
+
+```Javascript
+self.addEventListener('fetch', function (event) {
+	// Send the request to the network first
+	// If it's not found, look in the cache
+	event.respondWith(
+		fetch(event.request)
+			.then(function (response) {
+				console.log('response: ' + response);
+				return response;
+			})
+			.catch(async function (error) {
+				console.log('error:');
+				console.log(error);
+
+				const response = await caches.match(event.request);
+				const offlineResponse = await caches.match('/offline.html');
+				// if whe dont find a cache match we return the offline response
+				return response || offlineResponse;
+			})
+	);
+});
+```
