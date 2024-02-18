@@ -118,3 +118,25 @@ self.addEventListener('fetch', function (event) {
 	);
 });
 ```
+
+## Service worker (clear cache)
+
+To prevent problems with caching Eg you have added new resources you want to cache, but the cache is not updated with it.
+You should change your cache name and delete unused caches when you do changes to your resources.
+
+```Javascript
+self.addEventListener('activate', (event) => {
+	// Remove old caches
+	event.waitUntil(
+		(async () => {
+			const keys = await caches.keys();
+			return keys.map(async (cache) => {
+				if (cache !== cacheName) {
+					console.log('Service Worker: Removing old cache: ' + cache);
+					return await caches.delete(cache);
+				}
+			});
+		})()
+	);
+});
+```

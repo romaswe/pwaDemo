@@ -1,5 +1,7 @@
+const cacheName = 'v1';
+
 const addResourcesToCache = async (resources) => {
-	const cache = await caches.open('v1');
+	const cache = await caches.open(cacheName);
 	await cache.addAll(resources);
 };
 
@@ -60,5 +62,20 @@ self.addEventListener('fetch', function (event) {
 				// if whe dont find a cache match we return the offline response
 				return response || offlineResponse;
 			})
+	);
+});
+
+self.addEventListener('activate', (event) => {
+	// Remove old caches
+	event.waitUntil(
+		(async () => {
+			const keys = await caches.keys();
+			return keys.map(async (cache) => {
+				if (cache !== cacheName) {
+					console.log('Service Worker: Removing old cache: ' + cache);
+					return await caches.delete(cache);
+				}
+			});
+		})()
 	);
 });
