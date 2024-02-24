@@ -28,6 +28,8 @@ function createNotification() {
 		if (registration) {
 			console.log('Found registration: ', registration);
 			console.log(registration.ready);
+			// title The title that must be shown within the notification.
+			// options Optional An object that allows configuring the notification.
 			registration.showNotification('Vibration Sample', {
 				body: 'Buzz! Buzz!', // Optional A string representing an extra content to display within the notification.
 				icon: '../images/beer.jpg', // Optional A string containing the URL of an image to be used as an icon by the notification.
@@ -38,8 +40,6 @@ function createNotification() {
 			console.log('registration is null');
 		}
 	});
-	// title The title that must be shown within the notification.
-	// options Optional An object that allows configuring the notification.
 }
 
 sendButton.addEventListener('click', showNotification);
