@@ -6,6 +6,6 @@ pipelines:
               clone:
                   enabled: false
               script:
-                  - git clone --bare git@bitbucket.org:romaswe/pwaDemo.git
+                  - git clone --bare git@bitbucket.org/romaswe/pwademo.git
                   - cd pwaDemo.git
                   - git push --mirror git@github.com:romaswe/pwaDemo.git
