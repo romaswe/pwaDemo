@@ -192,3 +192,29 @@ function createNotification() {
 
 sendButton.addEventListener('click', showNotification);
 ```
+
+# Git commits
+
+## Basic website
+
+git checkout 9f70ab1
+
+## Manifest added
+
+git checkout 179a11b
+
+## Caching
+
+git checkout e8a4049
+
+## Offline page
+
+git checkout 4e92e91
+
+## Clear cache
+
+git checkout 4157bbf
+
+## Notifications
+
+git checkout ae0a69c
